@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META name="GENERATOR" content="IBM HomePage Builder 2000  for Windows">
+<TITLE>View / 取扱説明書</TITLE>
+</HEAD>
+
+<BODY bgcolor="#ffffff" text="#7e2828" link="#7726c8" alink="5c4fff" vlink="ff5959">
+<FONT size="+3"><B>取扱説明書</B></FONT>
+<HR>
+<DIV align="right"> 絵描き御用達イメージ表示スクリプト - View</DIV>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1">■もくじ</FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">
+      <CENTER>
+      <TABLE cellpadding="0" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD>
+            <UL>
+              <LI><FONT size="+1"><A href="#gaiyou">概要</A></FONT>
+              <LI><FONT size="+1"><A href="#kankyou">動作環境</A></FONT>
+              <LI><FONT size="+1"><A href="#dounyuu">導入</A></FONT>
+              <LI><FONT size="+1"><A href="#settei">プログラム側の設定・使用法</A></FONT>
+              <LI><FONT size="+1"><A href="#skin">オリジナルスキン(定義ファイル)の作り方</A></FONT>
+              <LI><FONT size="+1"><A href="#sengen">宣言</A></FONT>
+              <LI><FONT size="+1"><A href="#saigoni">最後に</A></FONT>
+              </UL>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER><BR>
+      <B>
+      ■おことわり</B><BR>
+      このスクリプトは、CGI/SSI設置の知識がある程度ある方を対象にしています。<BR>
+      申し訳ありませんが、この説明書を読んでもチンプンカンプンだった人は使用をご遠慮下さい。</TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="gaiyou">■概要</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0"><B>「View」</B>は perl で動作する画像表示スクリプトです。
+      <BR>
+      <BR>
+      単体で画像を表示するときに、背景を付けたいと思ったことはありませんか？<BR>
+      普通に画像に直リンクするとブラウザ基本色が背景色、しかも画像はセンタリングされないわであんまりイケてないですよね。<BR>
+      <BR>
+      で、すぐに思いつくのが背景や文字色、&lt;IMG&gt;タグを指定したHTMLを作って表示させることですが、絵の数が増えてくると結構大変ですよね。<BR>
+      いや、大変でないのならばそちらの方が思い通りに表示できて良いんですが…(弱音；)<BR><BR>
+      とにかく、そういう面倒くさがりさんにもってこいなのがこの
+      View なんだよ、<B><FONT size="+1">ジョージ！</FONT></B>(ワァっと客席から歓声)<BR>
+      じゃあ、全国から集めた View ユーザの熱い声援VTRでも見てみようか！(客席からオォーという声)<BR>
+      じゃっ、VTR、スッタートゥッッッ！<BR><BR>
+      <BR>
+      <B><FONT size="+1"><U>Viewの特徴 </U></FONT></B>
+      <UL>
+        <LI>
+        <B>定義ファイルにより、柔軟な設定が出来る<BR>
+        </B>絵・ドキュメントの置き場所、背景色、文字色などを定義ファイルに別個に保存しておくことができます。<BR>
+        例えば、定義ファイルを「可愛い系」「渋い系」「頂き物」「贈り物」みたいな感じでグループ分けしておけば、飾る絵の種類に合わせて周りの雰囲気を変えることが出来ます。<BR>
+        <BR>
+        額縁にグラフィックを使うこともできますので、色んな見せ方が出来ます。<BR>
+        Winamp のSkinみたいなものですね。<BR><BR>
+        
+        
+        <LI>
+        <B>送信フォーム<BR>
+        </B>お客さんが感想を送りやすいように自動的に送信フォームを付けます。<BR>
+        もちろん、定義ファイルの設定により、表示をカットすることもできます。
+        <BR><BR>
+        
+        
+        <LI><B>他のCGIと親和性が高い<BR>
+        </B>目には目を、歯には歯を。CGIにはCGIを。(●20点<BR>
+        <B>実はこれが View 最大の利点というか、存在意義なのです</B>が、URLから表示形態を指定できるということは、URLをCGIで加工するなど、上手いことやれば自動的にパラメータを指定できますよね。<BR>
+        <BR>
+        もっと噛み砕いて例えを言うと、<FONT color="#b00000"><B>ファイル名や作品名などのデータベースを作って、そのデータベースからCGIなどでタグを自動生成してもらえば楽チンだなあ</B></FONT>ってコトです。<BR>
+        
+        <BR>
+        <U>
+        <B>
+        View は拙作 Listgen の補助プログラムとして使うと最も効果を発揮できるように設計されています。</B><BR>
+        </U>もちろん、手打ちで打ち込んだとしても、いちいちHTMLを作るよりは手っ取り早いでしょう。
+        
+      </UL></TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="kankyou">■動作環境</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">UNIX系OSなら多分なんでも行けると思います。<BR>
+      (つーか、あんまり詳しいことはよく分からないの…(・ω・)ノ)<BR><BR>
+      動作確認は<BR>
+      　　　FreeBSD 2.2.7R + Apache 1.2.6 + jperl
+      5.004_04-980303<BR>
+      　　　Red Hat Linux release 4.2 + Apache
+      + Perl 4.0.1.8<BR>
+      にて行いました。</TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="dounyuu">■導入</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0"><B> ☆解凍☆</B>
+      <BLOCKQUOTE>view.lzh を解凍します。<BR>
+      <BR>
+      <TABLE border="0" cellpadding="0" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD align="left">
+            <PRE>  &lt;view ディレクトリ&gt;
+  view.cgi              (プログラム本体)
+  readme.html           (説明書。これです)
+  dummy.gif             (ダミー画像 ( view.cgi が使います) )
+  index.html            (ディレクトリを覗かれないようにする為のダミー)
+
+    &lt;defディレクトリ&gt;   (ここに定義ファイルを格納します。)
+      &lt;fuka&gt;            (デフォルト)
+        fuka.def        (定義ファイル。他のディレクトリも同様)
+
+      &lt;aqua&gt;            (淡い寒色系の色で統一してます)
+      &lt;kadomaru8&gt;       (文字通り、絵の縁を丸くします)
+      &lt;wood&gt;            (木製の額縁が絵を飾ります)
+      &lt;photo&gt;           (写真調というよりは、葬式っぽいかも(^^;)</PRE>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <BR>
+      これらのファイルが出てきましたか？<BR>
+      </BLOCKQUOTE>
+      <BR>
+      <BR>
+      <B>
+      ☆パーミッションの設定・ディレクトリ構成☆</B>
+      <BLOCKQUOTE>
+      出てきたファイルをサーバ側の任意のディレクトリへコピーします。<BR>
+      そのとき、ディレクトリ名は view が適当でしょう。<BR>
+      <BR>
+      プロバイダから「スクリプトは cgi-bin 以下に置きなさい」など、スクリプトの置き場所を指定されているときは、そのディレクトリの下に
+      webstat ディレクトリを作って下さい。<BR>
+      <BR>
+      最終的には、次の様になるようにします。<BR>
+      <TABLE cellpadding="0" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD>
+            <PRE>＜標準のディレクトリ構成＞
+                                  ( パーミッション )
+/cgi-bin/                         (705)  -rwx---r-x
+    |--/view/                     (705)  drwx---r-x
+         |-- view.cgi             (705)  -rwx---r-x    (View本体)
+         |-- dummy.gif                                 (ダミー画像)
+         |-- index.html                                (カモフラージュ用)
+         |-- /def/                (705)  drwx---r-x    (ログ用ディレクトリ)
+               |-- /fuka/         (705)  drw----rw-    (ログファイル)
+                     |-- fuka.def                      (定義ファイル)
+                ：
+
+()内はパーミッションの数値
+なお、特に権限を表記していないファイルについては(604)でお願いします。
+普通、アップロードしたての状態は(604)に設定されます。</PRE>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <BR>
+      <B><FONT color="#b00000">！！！注意！！！</FONT></B><BR>
+      <B>画像ファイル以外は「アスキーモード」で転送して下さい。</B><BR>
+      普通通りに転送してしまうと大抵「バイナリモード」で転送されてしまい、思わぬ誤動作の原因になります。<BR>
+      アスキーモードでの転送の仕方・パーミッションの変更の仕方は各
+      ftp クライアントの説明書を参照下さい。</BLOCKQUOTE>
+      </TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="settei">■プログラム側の設定・使用法</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0"><B><U><FONT size="+1">●設定について</FONT></U></B><BR>
+      <BR>
+      このスクリプトではプログラム本体をいじる必要は全くありません。<BR>
+      設定はすべて定義ファイル上で行います。<BR><BR>
+      <BR>
+      <B><FONT size="+1">定義ファイルのいじり方</FONT></B><BR>
+      <BLOCKQUOTE>注釈をかなり丁寧に入れています(つもり)ので、説明の必要はありません…よね(⌒ω⌒；<BR>
+      aqua.def や wood.def 等を参照しながら fuka.def
+      で練習すると良いでしょう。</BLOCKQUOTE>
+      <BR><BR>
+      <B><FONT size="+1">使い方</FONT></B><BR><BR>
+      ブラウザのURL入力欄に、<BR>
+      <BR>
+      http://www.hoge.ne.jp/~username/cgi-bin/view/view.cgi?<B><FONT color="#b00000">fuka</FONT></B>&amp;<B><FONT color="#408080">imagefile.jpg</FONT></B>&amp;<B><FONT color="#000099">textfile.txt</FONT></B>&amp;<B>作品名</B><BR><BR>
+      と、入力してみましょう。<BR>
+      <BR>
+      ちなみに、オプションの意味は以下の通りとなっております。<BR>
+      <CENTER>
+      <TABLE border="1" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD><B><FONT color="#b00000">fuka</FONT></B></TD>
+            <TD>定義ファイルの名前。<BR>
+            <B>絶対に定義ファイルの名前と、格納するディレクトリの名前は同一にして下さい。</B></TD>
+          </TR>
+          <TR>
+            <TD><B><FONT color="#408080">imagefile.jpg</FONT></B></TD>
+            <TD>読み込む画像ファイルの名前を指定します。</TD>
+          </TR>
+          <TR>
+            <TD><B><FONT color="#000099">textfile.txt</FONT></B></TD>
+            <TD>読み込む説明文を指定します。<BR>
+            <B>省略可能。</B><BR>
+            <BR>
+            <B>説明文の文字コードは必ずShiftJISにして下さい。</B><BR>
+            Windows(Machintoshも？)パソコンをお使いの方は気にしなくて結構です。</TD>
+          </TR>
+          <TR>
+            <TD><B>作品名</B></TD>
+            <TD>作品名を入力して下さい。　どうなるかはやってみれば分かります(⌒ω⌒；<BR>
+            <B>日本語を使う場合は、ShiftJISで</B>書いて下さい。　でないと文字化けします。<BR>
+            <B>省略可能。</B><BR>
+            <BR>
+            また、<B>半角スペースを使いたい場合は + (プラス)記号を使います。</B><BR>
+            そうしないと、最初のスペースまでで語句が途切れてしまいます。<BR>
+            全角スペースは問題ありません。<BR>
+            <BR>
+            例）美人妻 湯煙旅情 殺人事件　→　美人妻+湯煙旅情+殺人事件</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      <BR>
+      上手く行きましたか？<BR>
+      指定したとおりに画像と文章が出てくればOKです。<BR><BR>
+      上の表にもありますが、説明文と作品名の指定は省略することが出来ます。<BR>
+      そのときは、<BR>
+      <CENTER>
+      <TABLE border="1" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD><U>(作品名を省略)<BR>
+            </U>
+            http://www.hoge.ne.jp/~username/cgi-bin/view/view.cgi?<B><FONT color="#b00000">fuka</FONT></B>&amp;<B><FONT color="#408080">imagefile.jpg</FONT></B>&amp;<B><FONT color="#000099">textfile.txt</FONT></B><BR>
+            <BR>
+            <U>(説明文を省略 - &amp;(アンパサンド)を省略しないのがポイント)</U><BR>
+            http://www.hoge.ne.jp/~username/cgi-bin/view/view.cgi?<B><FONT color="#b00000">fuka</FONT></B>&amp;<B><FONT color="#408080">imagefile.jpg</FONT></B>&amp;&amp;<B>作品名</B><BR>
+            <BR>
+            <U>(両方省略)</U><BR>
+            http://www.hoge.ne.jp/~username/cgi-bin/view/view.cgi?<B><FONT color="#b00000">fuka</FONT></B>&amp;<B><FONT color="#408080">imagefile.jpg</FONT></B><BR>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      この様に呼び出して下さい。<BR>
+      <BR>
+      なお、このプログラムは普通、<BR>
+      &lt;A HREF=&quot;./cgi-bin/view/view.cgi?<B><FONT color="#b00000">fuka</FONT></B>&amp;<B><FONT color="#408080">imagefile.jpg</FONT></B>&amp;<B><FONT color="#000099">textfile.txt</FONT></B>&amp;<B>作品名</B>&quot;&gt;画像&lt;/A&gt;<BR>
+      この様にリンクの時に使います。<BR><BR>
+      <BR>
+      <B><FONT size="+1"><BR>
+      トラブルシューティング</FONT></B>
+      <BR>
+      <UL>
+        <LI><B>Internal Server Errorと表示された</B>
+        <OL>
+          <LI>定義ファイルの指定を間違っていませんか？
+          <LI>view.cgi のパーミッションは 705 になっていますか？
+          <LI>定義ファイルに書き損じはないか？
+          <OL>
+            <LI>行の最後の ； (コロン)を忘れている
+            <LI>変数の内容を囲む ’ (シングルクォーテーション)はちゃんと対になっているか？<BR><BR>
+            
+          </OL>
+          
+        </OL>
+        
+        <LI><B>絵が表示されない</B>
+        <OL>
+          <LI>画像ファイルの名前を間違えていませんか？
+          <LI>ディレクトリの指定を間違えていませんか？<BR>
+          ディレクトリは<B> view.cgi から見た</B>相対パスで指定しなければなりません。
+          <LI>画像はサーバにアップされていますか？<BR><BR>
+          
+        </OL>
+        
+        <LI><B>文章が表示されない</B>
+        <OL>
+          <LI>テキストファイルの名前を間違えていませんか？
+          <LI>ディレクトリの指定を間違えていませんか？<BR>
+          ディレクトリは<B> view.cgi から見た</B>相対パスで指定しなければなりません。
+          <BR>
+          <BR>
+          <UL>
+            <LI><B>ぐしゃぐしゃの読むことが出来ない文字が出てくる</B><BR>
+            テキストファイルはShift-JISで書かれていますか？<BR>
+            UNIXな人は nkf 等を使って Shift-JIS
+            に変換して下さい。<BR>
+            または、 View をEUC仕様にするのも手です。<BR>
+            view.cgi をEUCに変換し、65行目の Shift-JIS
+            を EUC-JP にして下さい。<BR>
+            
+            
+          </UL>
+          
+        </OL>
+        
+        <LI><B>「外部からのパス指定は禁止されています」</B>
+        <OL>
+          <LI>読んで字の如くです。<BR>
+          いたずら防止のため、オプションからの相対パス指定を禁じています。
+        </OL>
+        
+      </UL>
+      </TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD colspan="2" bgcolor="#ffc6c7"><A name="skin"><B><FONT size="+1">■オリジナルスキン(定義ファイル)の作り方</FONT></B></A></TD>
+    </TR>
+    <TR>
+      <TD colspan="2" bgcolor="#ffdfe0">いやぁ…もっと「うすうす」タイプが良いとか、無香タイプ良いとかそういうヤツじゃなくてですね…。<BR>
+      （何が何でも下ネタに持っていくヤツ）<BR>
+      <BR>
+      ここでは、Skin作りのコツとか、諸注意を書きます。<BR>
+      <UL>
+        <LI><B>ディレクトリ名と定義ファイル名を一致させる</B><BR>
+        例えば、 abc.def という定義ファイルがあったとしますと、それを格納するディレクトリの名前は
+        abc でなければなりません。<BR>
+        これを守らないと定義ファイルが読み込めず、
+        Internal Error が発生します。<BR>
+        <BR>
+        
+        <LI><B>背景などの部品は同じディレクトリに入れましょう。</B><BR>
+        配布するときに便利です。<BR>
+        <BR>
+        
+        <LI><B>テーブル部品の横幅・縦幅を合わせる<BR>
+        </B>
+        サンプルの wood を見てもらえば分かりますが、テーブルの部品の横幅、縦幅は
+        $thick[1] で指定した値に合わせて下さい。<BR>
+        <BR>
+        
+      </UL>
+      当然ですが、あなたの作成したSkinはあなたに著作権があります。<BR>
+      自由に配布して構いません。　また、私に送っていただければ、Viewのページで紹介します。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><A name="sengen"><B><FONT size="+1">■宣言</FONT></B></A></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">このプログラムはフリーソフトです。<BR>
+      自由に改造して使用して下さい。 配布も自由です。
+      改造したものを再配布する事も制限しません。<BR>
+      但し、このプログラムに関して必要以上の金銭授受を伴う場合はそれを禁止します。<BR>
+      <BR>
+      著作権は放棄しません。 プログラム中のコピーライト表記を削除したり、改変しないで下さい。<BR>
+      が、あなたが View に大幅な改造を施した場合はその限りではありません。<BR>
+      その辺は常識的なさじ加減ということで…(^_^；<BR>
+      <BR>
+      このプログラムを用いた事による一切の損害について、作者及びサーバ責任者は責任を負わないものとします。<BR>
+      あなたの責任の範囲において使用して下さい。</TD></TR></TBODY></TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="640" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="saigoni">■最後に</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">もしよろしかったら、不可思議絵の具まで「Webstat使ってるよ～」とメールでも掲示板でも何でも構いませんので教えてあげて下さい。　皆さんの声は私の活力です。<BR>
+      また、メールアドレスを知らせていただくと、プログラムがバーションアップしたときなどにお知らせすることが出来ます。　将来的にはメーリングリストでも開こうかとは思っているのですが。<BR>
+      <BR>
+      みなさまからのご意見をお待ちしています。<BR>
+      また、スクリプトに関する質問なども受け付けています。<BR>
+      <BR>
+      その際は「ふかふか屋」へどうぞ。 カウンタを回してあげて下さい(^ω^;</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<HR>
+<DIV align="right">&copy;1999 不可思議絵の具<BR>
+(<A href="https://ygkb.jp/">https://ygkb.jp/</A>)</DIV>
+</BODY>
+</HTML>
